@@ -1,4 +1,5 @@
 import * as yargs from 'yargs';
+import * as chalk from 'chalk';
 import {CatGrep} from "./catGrep";
 
 
@@ -20,7 +21,13 @@ yargs.command({
   handler(argv) {
     if (typeof argv.file === 'string' && typeof argv.word === 'string' && process.argv.length === 5) {
       const newCatGrep: CatGrep = new CatGrep(argv.file, argv.word);
-      newCatGrep.runPipe();
+      newCatGrep.runPipe((err, evenType) => {
+        if (err) {
+          console.log(err);
+        } else if (evenType) {
+          console.log(evenType);
+        }
+      });
     } else {
       console.log('Datos introducidos son erróneos');
     }
@@ -45,7 +52,13 @@ yargs.command({
   handler(argv) {
     if (typeof argv.file === 'string' && typeof argv.word === 'string' && process.argv.length === 5) {
       const newCatGrep: CatGrep = new CatGrep(argv.file, argv.word);
-      newCatGrep.runNoPipe();
+      newCatGrep.runNoPipe((err, evenType) => {
+        if (err) {
+          console.log(chalk.red(err));
+        } else if (evenType) {
+          console.log(chalk.white(evenType));
+        }
+      });
     } else {
       console.log('Datos introducidos son erróneos');
     }

@@ -4,10 +4,10 @@ import {spawn} from 'child_process';
 export class CatGrep {
   constructor(private fileName: string, private word: string) {}
 
-  runPipe(): void {
+  runPipe(callback: (err: string | undefined, event: string | undefined) => void): void {
     fs.access(this.fileName, fs.constants.F_OK, (err) => {
       if (err) {
-        console.log('El fichero no existe');
+        callback(`ERROR: El fichero ${this.fileName} no existe`, undefined);
       } else {
         const cat = spawn('cat', [this.fileName]);
         const grep = spawn('grep', [this.word]);
@@ -19,29 +19,29 @@ export class CatGrep {
         });
 
         grep.on('error', (error) => {
-          console.log(error.message);
+          callback(`ERROR: ${error.message}`, undefined);
         });
 
         cat.on('error', (error) => {
-          console.log(error.message);
+          callback(`ERROR: ${error.message}`, undefined);
         });
 
         grep.on('close', () => {
           const numberWord: number = (grepOutput.match(`\W*(${this.word})\W*`) || []).length;
           if (numberWord > 0) {
-            console.log(`La pabara "${this.word}" aparece ${numberWord} veces en el fichero ${this.fileName}`);
+            callback(undefined, `La pabara "${this.word}" aparece ${numberWord} veces en el fichero ${this.fileName}`);
           } else {
-            console.log(`La pabara "${this.word}" no aparece en el fichero ${this.fileName}`);
+            callback(undefined, `La pabara "${this.word}" no aparece en el fichero ${this.fileName}`);
           }
         });
       }
     });
   }
 
-  runNoPipe() {
+  runNoPipe(callback: (err: string | undefined, event: string | undefined) => void) {
     fs.access(this.fileName, fs.constants.F_OK, (err) => {
       if (err) {
-        console.log('El fichero no existe');
+        callback(`ERROR: El fichero ${this.fileName} no existe`, undefined);
       } else {
         const cat = spawn('cat', [this.fileName]);
         const grep = spawn('grep', [this.word]);
@@ -51,7 +51,7 @@ export class CatGrep {
         });
 
         cat.on('error', (error) => {
-          console.log(error.message);
+          callback(`ERROR: ${error.message}`, undefined);
         });
 
         cat.on("close", () => {
@@ -64,15 +64,15 @@ export class CatGrep {
         });
 
         grep.on('error', (error) => {
-          console.log(error.message);
+          callback(`ERROR: ${error.message}`, undefined);
         });
 
         grep.on('close', () => {
           const numberWord: number = (grepOutput.match(`\W*(${this.word})\W*`) || []).length;
           if (numberWord > 0) {
-            console.log(`La pabara "${this.word}" aparece ${numberWord} veces en el fichero ${this.fileName}`);
+            callback(undefined, `La pabara "${this.word}" aparece ${numberWord} veces en el fichero ${this.fileName}`);
           } else {
-            console.log(`La pabara "${this.word}" no aparece en el fichero ${this.fileName}`);
+            callback(undefined, `La pabara "${this.word}" no aparece en el fichero ${this.fileName}`);
           }
         });
       }
