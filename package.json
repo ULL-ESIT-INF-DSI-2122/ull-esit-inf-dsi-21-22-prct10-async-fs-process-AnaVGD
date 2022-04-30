@@ -8,6 +8,9 @@
     "coverage": "nyc npm test && nyc report --reporter=lcov",
     "start": "tsc-watch --onSuccess \"node dist/basicFunctions.js\"",
     "prub": "tsc-watch --onSuccess \"node dist/prub.js\"",
+    "eje3": "tsc-watch --onSuccess \"node dist/Ejercicio3/eje3\"",
+    "eje4": "tsc-watch --onSuccess \"node dist/Ejercicio4/wrapper.js\"",
+    "add": "tsc-watch --onSuccess \"node dist/Ejercicio3/note-app.js add --user='edusegre'--title='Red note' --body='This is a red note' --color='red'\"",
     "doc": "typedoc; touch ./docs/.nojekyll"
   },
   "keywords": [],
@@ -18,6 +21,8 @@
     "@types/express": "^4.17.13",
     "@types/mocha": "^8.2.1",
     "@types/node": "^17.0.29",
+    "@types/rimraf": "^3.0.2",
+    "@types/yargs": "^17.0.10",
     "@typescript-eslint/eslint-plugin": "^4.15.2",
     "@typescript-eslint/parser": "^4.15.2",
     "chai": "^4.3.0",
@@ -31,6 +36,8 @@
     "typescript": "^4.2.3"
   },
   "dependencies": {
-    "express": "^4.18.0"
+    "express": "^4.18.0",
+    "rimraf": "^3.0.2",
+    "yargs": "^17.4.1"
   }
 }
