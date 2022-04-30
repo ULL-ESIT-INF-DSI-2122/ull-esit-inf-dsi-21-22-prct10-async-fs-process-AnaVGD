@@ -1,13 +1,13 @@
-import { spawn } from 'child_process';
+import {spawn} from 'child_process';
 import * as fs from 'fs';
 
 export class Wrapper {
   constructor(private file: string) {}
 
-  checkDirFile() {
+  checkDirFile(callback: (err: string | undefined, event: string | undefined) => void) {
     fs.access(this.file, fs.constants.F_OK, (err) => {
       if (err) {
-        console.log(`No existe ./${this.file}`);
+        callback(`No existe ./${this.file}`, undefined);
       } else {
         const ls = spawn('ls', ['-ld', this.file]);
 
@@ -17,46 +17,42 @@ export class Wrapper {
         });
 
         ls.on('error', (error) => {
-          console.log(error.message);
+          callback(`ERROR: ./${error.message}`, undefined);
         });
 
         ls.on('close', () => {
-          // console.log(lsOutput);
           const vecLsOutput = lsOutput.split('');
-          // console.log(vecLsOutput);
           if (vecLsOutput[0] === 'd') {
-            console.log(`${this.file} es un directorio`);
+            callback(undefined, `${this.file} es un directorio`);
           } else {
-            console.log(`${this.file} es un fichero`);
+            callback(undefined, `${this.file} es un fichero`);
           }
         });
       }
     });
   }
 
-  mkdir() {
+  mkdir(callback: (err: string | undefined, event: string | undefined) => void) {
     fs.access(this.file, fs.constants.F_OK, (err) => {
       if (!err) {
-        console.log(`Ya existe ./${this.file}`);
+        callback(`Ya existe ${this.file}`, undefined);
       } else {
         spawn('mkdir', [this.file]);
-        console.log("Directorio creado");
+        callback(undefined, "Directorio creado");
       }
     });
   }
 
-  listFiles() {
+  listFiles(callback: (err: string | undefined, event: string | undefined) => void) {
     fs.access(this.file, fs.constants.F_OK, (err) => {
       if (err) {
-        console.log('El fichero no existe');
+        callback(`El fichero ${this.file} no existe`, undefined);
       } else {
         fs.stat(this.file, (err, stats) => {
           if (!err) {
             if (stats.isFile()) {
-              console.log(`${this.file} es un fichero`);
+              callback(`${this.file} es un fichero`, undefined);
             } else if (stats.isDirectory()) {
-              // console.log('is directory? ' + stats.isDirectory());
-              // console.log('is directory? ' + stats.isDirectory());
               const ls = spawn('ls', ['-p', this.file]);
               const grep = spawn('grep', ['-v', '/']);
               ls.stdout.pipe(grep.stdin);
@@ -67,35 +63,35 @@ export class Wrapper {
               });
 
               grep.on('error', (error) => {
-                console.log(error.message);
+                callback(`ERROR: ./${error.message}`, undefined);
               });
 
               ls.on('error', (error) => {
-                console.log(error.message);
+                callback(`ERROR: ./${error.message}`, undefined);
               });
 
               grep.on('close', () => {
-                if (grepOutput.length === 0) console.log(`No hay ficheros en el directorio ${this.file}`);
-                else console.log(grepOutput);
+                if (grepOutput.length === 0) callback(undefined, `No hay ficheros en el directorio ${this.file}`);
+                else callback(undefined, grepOutput);
               });
             }
           } else {
-            console.log(err.message);
+            callback(`ERROR: ./${err.message}`, undefined);
           }
         });
       }
     });
   }
 
-  cat() {
+  cat(callback: (err: string | undefined, event: string | undefined) => void) {
     fs.access(this.file, fs.constants.F_OK, (err) => {
       if (err) {
-        console.log('El fichero no existe');
+        callback(`El fichero ${this.file} no existe`, undefined);
       } else {
         fs.stat(this.file, (err, stats) => {
           if (!err) {
             if (stats.isDirectory()) {
-              console.log(`${this.file} es un directorio`);
+              callback(`${this.file} es un directorio`, undefined);
             } else if (stats.isFile()) {
               const cat = spawn('cat', [this.file]);
 
@@ -105,25 +101,25 @@ export class Wrapper {
               });
 
               cat.on('error', (error) => {
-                console.log(error.message);
+                callback(`ERROR: ./${error.message}`, undefined);
               });
 
               cat.on('close', () => {
-                console.log(catOutput);
+                callback(undefined, catOutput);
               });
             }
           } else {
-            console.log(err.message);
+            callback(`ERROR: ./${err.message}`, undefined);
           }
         });
       }
     });
   }
 
-  rm() {
+  rm(callback: (err: string | undefined, event: string | undefined) => void) {
     fs.access(this.file, fs.constants.F_OK, (err) => {
       if (err) {
-        console.log('El fichero no existe');
+        callback(`El fichero ${this.file} no existe`, undefined);
       } else {
         fs.stat(this.file, (err, stats) => {
           if (!err) {
@@ -131,49 +127,49 @@ export class Wrapper {
               const rm = spawn('rm', ['-R', this.file]);
 
               rm.on('error', (error) => {
-                console.log(error.message);
+                callback(`ERROR: ./${error.message}`, undefined);
               });
 
               rm.on('close', () => {
-                console.log(`Eliminado el directorio ${this.file}`);
+                callback(undefined, `Eliminado el directorio ${this.file}`);
               });
             } else if (stats.isFile()) {
               const rm = spawn('rm', [this.file]);
 
               rm.on('error', (error) => {
-                console.log(error.message);
+                callback(`ERROR: ./${error.message}`, undefined);
               });
 
               rm.on('close', () => {
-                console.log(`Eliminado el fichero ${this.file}`);
+                callback(undefined, `Eliminado el fichero ${this.file}`);
               });
             }
           } else {
-            console.log(err.message);
+            callback(`ERROR: ./${err.message}`, undefined);
           }
         });
       }
     });
   }
 
-  cp(destination: string) {
+  cp(destination: string, callback: (err: string | undefined, event: string | undefined) => void) {
     fs.access(this.file, fs.constants.F_OK, (err) => {
       if (err) {
-        console.log('El fichero origen no existe');
+        callback(`El fichero ${this.file} no existe`, undefined);
       } else {
         fs.access(destination, fs.constants.F_OK, (err) => {
           if (err) {
-            console.log('El fichero destino no existe');
+            callback(`El fichero ${this.file} no existe`, undefined);
           } else {
             const fileName = this.file.split('/');
             fs.access(`${destination}/${fileName[fileName.length - 1]}`, fs.constants.F_OK, (err) => {
               if (!err) {
-                console.log('El fichero/directorio a copiar ya existe en destino');
+                callback('El fichero/directorio a copiar ya existe en destino', undefined);
               } else {
                 fs.stat(destination, (err, stats) => {
                   if (!err) {
                     if (stats.isFile()) {
-                      console.log(`La ruta ${destination} es un fichero`);
+                      callback(`La ruta ${destination} es un fichero`, undefined);
                     } else if (stats.isDirectory()) {
                       fs.stat(this.file, (err, stats) => {
                         if (!err) {
@@ -181,25 +177,25 @@ export class Wrapper {
                             const cp = spawn('cp', [this.file, destination]);
 
                             cp.on('error', (error) => {
-                              console.log(error.message);
+                              callback(`ERROR: ./${error.message}`, undefined);
                             });
 
                             cp.on('close', () => {
-                              console.log(`El fichero ${this.file} copiado en ${destination}`);
+                              callback(undefined, `El fichero ${this.file} copiado en ${destination}`);
                             });
                           } else if (stats.isDirectory()) {
                             const cp = spawn('cp', ['-r', this.file, destination]);
 
                             cp.on('error', (error) => {
-                              console.log(error.message);
+                              callback(`ERROR: ./${error.message}`, undefined);
                             });
 
                             cp.on('close', () => {
-                              console.log(`El fichero ${this.file} copiado en ${destination}`);
+                              callback(undefined, `El fichero ${this.file} copiado en ${destination}`);
                             });
                           }
                         } else {
-                          console.log(err.message);
+                          callback(`ERROR: ./${err.message}`, undefined);
                         }
                       });
                     }
@@ -213,33 +209,33 @@ export class Wrapper {
     });
   }
 
-  mv(destination: string) {
+  mv(destination: string, callback: (err: string | undefined, event: string | undefined) => void) {
     fs.access(this.file, fs.constants.F_OK, (err) => {
       if (err) {
-        console.log('El fichero origen no existe');
+        callback('El fichero origen no existe', undefined);
       } else {
         fs.access(destination, fs.constants.F_OK, (err) => {
           if (err) {
-            console.log('El fichero destino no existe');
+            callback('El fichero destino no existe', undefined);
           } else {
             const fileName = this.file.split('/');
             fs.access(`${destination}/${fileName[fileName.length - 1]}`, fs.constants.F_OK, (err) => {
               if (!err) {
-                console.log('El fichero/directorio a mover ya existe en destino');
+                callback('El fichero/directorio a mover ya existe en destino', undefined);
               } else {
                 fs.stat(destination, (err, stats) => {
                   if (!err) {
                     if (stats.isFile()) {
-                      console.log(`La ruta de destino ${destination} es un fichero`);
+                      callback(`La ruta de destino ${destination} es un fichero`, undefined);
                     } else if (stats.isDirectory()) {
                       const mv = spawn('mv', [this.file, destination]);
 
                       mv.on('error', (error) => {
-                        console.log(error.message);
+                        callback(`ERROR: ./${error.message}`, undefined);
                       });
 
                       mv.on('close', () => {
-                        console.log(`El fichero ${this.file} movido a ${destination}`);
+                        callback(undefined, `El fichero ${this.file} movido a ${destination}`);
                       });
                     }
                   }

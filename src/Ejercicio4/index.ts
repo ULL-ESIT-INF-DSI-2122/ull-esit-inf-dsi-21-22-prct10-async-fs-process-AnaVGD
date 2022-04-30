@@ -1,5 +1,6 @@
 import * as yargs from 'yargs';
 import {Wrapper} from "./wrapper";
+import * as chalk from 'chalk';
 
 
 yargs.command({
@@ -15,7 +16,13 @@ yargs.command({
   handler(argv) {
     if (typeof argv.file === 'string' && process.argv.length === 4) {
       const wrap: Wrapper = new Wrapper(argv.file);
-      wrap.checkDirFile();
+      wrap.checkDirFile((err, evenType) => {
+        if (err) {
+          console.log(chalk.red(err));
+        } else if (evenType) {
+          console.log(chalk.white(evenType));
+        }
+      });
     } else {
       console.log('Datos introducidos son erróneos');
     }
@@ -35,7 +42,13 @@ yargs.command({
   handler(argv) {
     if (typeof argv.file === 'string' && process.argv.length === 4) {
       const wrap: Wrapper = new Wrapper(argv.file);
-      wrap.mkdir();
+      wrap.mkdir((err, evenType) => {
+        if (err) {
+          console.log(chalk.red(err));
+        } else if (evenType) {
+          console.log(chalk.white(evenType));
+        }
+      });
     } else {
       console.log('Datos introducidos son erróneos');
     }
@@ -55,7 +68,13 @@ yargs.command({
   handler(argv) {
     if (typeof argv.file === 'string' && process.argv.length === 4) {
       const wrap: Wrapper = new Wrapper(argv.file);
-      wrap.listFiles();
+      wrap.listFiles((err, evenType) => {
+        if (err) {
+          console.log(chalk.red(err));
+        } else if (evenType) {
+          console.log(chalk.white(evenType));
+        }
+      });
     } else {
       console.log('Datos introducidos son erróneos');
     }
@@ -75,7 +94,13 @@ yargs.command({
   handler(argv) {
     if (typeof argv.file === 'string' && process.argv.length === 4) {
       const wrap: Wrapper = new Wrapper(argv.file);
-      wrap.cat();
+      wrap.cat((err, evenType) => {
+        if (err) {
+          console.log(chalk.red(err));
+        } else if (evenType) {
+          console.log(chalk.white(evenType));
+        }
+      });
     } else {
       console.log('Datos introducidos son erróneos');
     }
@@ -95,7 +120,13 @@ yargs.command({
   handler(argv) {
     if (typeof argv.file === 'string' && process.argv.length === 4) {
       const wrap: Wrapper = new Wrapper(argv.file);
-      wrap.rm();
+      wrap.rm((err, evenType) => {
+        if (err) {
+          console.log(chalk.red(err));
+        } else if (evenType) {
+          console.log(chalk.white(evenType));
+        }
+      });
     } else {
       console.log('Datos introducidos son erróneos');
     }
@@ -120,7 +151,13 @@ yargs.command({
   handler(argv) {
     if (typeof argv.fileO === 'string' && typeof argv.fileD === 'string' && process.argv.length === 5) {
       const wrap: Wrapper = new Wrapper(argv.fileO);
-      wrap.cp(argv.fileD);
+      wrap.cp(argv.fileD, (err, evenType) => {
+        if (err) {
+          console.log(chalk.red(err));
+        } else if (evenType) {
+          console.log(chalk.white(evenType));
+        }
+      });
     } else {
       console.log('Datos introducidos son erróneos');
     }
@@ -145,7 +182,13 @@ yargs.command({
   handler(argv) {
     if (typeof argv.fileO === 'string' && typeof argv.fileD === 'string' && process.argv.length === 5) {
       const wrap: Wrapper = new Wrapper(argv.fileO);
-      wrap.mv(argv.fileD);
+      wrap.mv(argv.fileD, (err, evenType) => {
+        if (err) {
+          console.log(chalk.red(err));
+        } else if (evenType) {
+          console.log(chalk.white(evenType));
+        }
+      });
     } else {
       console.log('Datos introducidos son erróneos');
     }
