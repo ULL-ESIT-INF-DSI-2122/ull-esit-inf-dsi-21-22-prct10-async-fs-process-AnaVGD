@@ -1,5 +1,11 @@
 # Práctica 10 - Sistema de ficheros y creación de procesos en Node.js
 
+Ana Virginia Giambona Díaz (alu0101322650@ull.edu.es)
+<br>
+Desarrollo de Sistemas Informáticos
+
+[![Coverage Status](https://coveralls.io/repos/github/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct10-async-fs-process-AnaVGD/badge.svg?branch=main)](https://coveralls.io/github/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct10-async-fs-process-AnaVGD?branch=main)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ULL-ESIT-INF-DSI-2122_ull-esit-inf-dsi-21-22-prct10-async-fs-process-AnaVGD&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ULL-ESIT-INF-DSI-2122_ull-esit-inf-dsi-21-22-prct10-async-fs-process-AnaVGD)
 
 
 ## Índice
@@ -12,7 +18,7 @@
 
 ## Introducción<a name="idc"></a>
 En esta práctica se plantean una serie de ejercicios o retos a resolver haciendo uso de las APIs proporcionadas por Node.js para interactuar con el sistema de ficheros, así como para crear procesos.
-### Ejercicio 1
+### Ejercicio 1<a name="id1"></a>
 Traza de ejecución mostrando, paso a paso, el contenido de la pila de llamadas, el registro de eventos de la API y la cola de manejadores, además de lo que se muestra por la consola.
 
 1. Se inicializa la stak, API y QUEVE vacías
@@ -147,7 +153,7 @@ En este punto se generan dos situaciones
 | -- | -- | -- |
 | -- | -- | -- |
 
-### Ejercicio 2
+### Ejercicio 2<a name="id2"></a>
 Consistente en la implementación de un programa que devuelva el número de ocurrencias de una palabra en un fichero de texto. Para acceder al contenido del fichero se expande el comando `cat` de Unix/Linux, además de expandir el comando `grep` con la salida proporcionada por cat como entrada para obtener las líneas en las que se encuentra la palabra buscada.
 
 Posee un clase `CatGrep` a la que se le pasa por el constructor la dirección del fichero
@@ -322,7 +328,7 @@ Y otro comando `noPipe` para ejecutar el método que no usa pipe
 node dist/Ejercicio2/index.js node noPipe --file="helloworld" --word="Hola"
 ```
 
-### Ejercicio 3
+### Ejercicio 3<a name="id3"></a>
 A partir de la aplicación de procesamiento de notas desarrollada en la Práctica 9, desarrolle una aplicación que reciba desde la línea de comandos el nombre de un usuario de la aplicación de notas, así como la ruta donde se almacenan las notas de dicho usuario. Esta aplicación gestiona los cambios realizados sobre todo el directorio especificado al mismo tiempo que dicho usuario interactúa con la aplicación de procesamiento de notas.
 
 Este ejercicio consta de una clase `SeeNote` a la que se le pasó por el constructor el usuario y el dirección donde se almacenan las notas del usuario.
@@ -410,7 +416,7 @@ En este caso lo que haría yo es que para mostrar el nombre es tan fácil como u
 Tras una búsqueda por internet y tras lo dado en clase, se podría hacer esto con un watch recursivo, es decir que ponemos true a recursive `fs.watch( filename[recursive: true][, listener] )` de esta forma se vigilan todos los subdirectorios del directorio dado.
 
 
-### Ejercicio 4
+### Ejercicio 4<a name="id4"></a>
 Aplicación que permite hacer de `wrapper` de los distintos comandos empleados en Linux para el manejo de ficheros y directorios. En concreto, la aplicación deberá permitir:
 
 1. Dada una ruta concreta, mostrar si es un directorio o un fichero.

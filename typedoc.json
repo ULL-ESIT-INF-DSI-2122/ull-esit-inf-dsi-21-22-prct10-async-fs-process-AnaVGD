@@ -1,6 +1,14 @@
 {
   "entryPoints": [
-    "./src/basicFunctions.ts"
+    "./src/Ejercicio2/catGrep.ts",
+    "./src/Ejercicio2/index.ts",
+    "./src/Ejercicio3/note.ts",
+    "./src/Ejercicio3/management.ts",
+    "./src/Ejercicio3/note-app.ts", 
+    "./src/Ejercicio3/index.ts",
+    "./src/Ejercicio3/seeNote.ts",
+    "./src/Ejercicio4/index.ts",
+    "./src/Ejercicio4/wrapper.ts"
   ],
-  "out": "./docs"
+  "out": "./typedoc"
 }

@@ -11,7 +11,7 @@
     "eje3": "tsc-watch --onSuccess \"node dist/Ejercicio3/eje3\"",
     "eje4": "tsc-watch --onSuccess \"node dist/Ejercicio4/wrapper.js\"",
     "add": "tsc-watch --onSuccess \"node dist/Ejercicio3/note-app.js add --user='edusegre'--title='Red note' --body='This is a red note' --color='red'\"",
-    "doc": "typedoc; touch ./docs/.nojekyll"
+    "doc": "typedoc; touch ./typedoc/.nojekyll"
   },
   "keywords": [],
   "author": "",
