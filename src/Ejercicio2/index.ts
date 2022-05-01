@@ -2,7 +2,9 @@ import * as yargs from 'yargs';
 import * as chalk from 'chalk';
 import {CatGrep} from "./catGrep";
 
-
+/**
+ * Comando para ejecutar el programa con pipe
+ */
 yargs.command({
   command: 'pipe',
   describe: 'Ejecutar programa con pipe',
@@ -23,9 +25,9 @@ yargs.command({
       const newCatGrep: CatGrep = new CatGrep(argv.file, argv.word);
       newCatGrep.runPipe((err, evenType) => {
         if (err) {
-          console.log(err);
+          console.log(chalk.red(err));
         } else if (evenType) {
-          console.log(evenType);
+          console.log(chalk.white(evenType));
         }
       });
     } else {
@@ -34,6 +36,9 @@ yargs.command({
   },
 });
 
+/**
+ * Comando para ejecutar el programa sin pipe
+ */
 yargs.command({
   command: 'noPipe',
   describe: 'Ejecutar programa con pipe',

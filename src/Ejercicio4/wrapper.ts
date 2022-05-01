@@ -1,9 +1,24 @@
 import {spawn} from 'child_process';
 import * as fs from 'fs';
 
+/**
+ * Clase `Wrapper`
+ */
 export class Wrapper {
+  /** getter que devuelve la dirección del fichero  */
+  public getFile(): string {
+    return this.file;
+  }
+  /**
+   * Constructor de la clase Wrapper
+   * @param file dirección del fichero 
+   */
   constructor(private file: string) {}
 
+  /**
+   * Método `checkDirFile`, comprueba si la dirección pasada es un fichero o un directorio
+   * @param callback callback
+   */
   checkDirFile(callback: (err: string | undefined, event: string | undefined) => void) {
     fs.access(this.file, fs.constants.F_OK, (err) => {
       if (err) {
@@ -32,6 +47,10 @@ export class Wrapper {
     });
   }
 
+  /**
+   * `mkdir` se encarga de crear directorios
+   * @param callback callback
+   */
   mkdir(callback: (err: string | undefined, event: string | undefined) => void) {
     fs.access(this.file, fs.constants.F_OK, (err) => {
       if (!err) {
@@ -43,6 +62,10 @@ export class Wrapper {
     });
   }
 
+  /**
+   * Listar los ficheros dentro de un directorio.
+   * @param callback callback
+   */
   listFiles(callback: (err: string | undefined, event: string | undefined) => void) {
     fs.access(this.file, fs.constants.F_OK, (err) => {
       if (err) {
@@ -83,10 +106,14 @@ export class Wrapper {
     });
   }
 
+  /**
+   * Muestra el contenido de un fichero
+   * @param callback callback
+   */
   cat(callback: (err: string | undefined, event: string | undefined) => void) {
     fs.access(this.file, fs.constants.F_OK, (err) => {
       if (err) {
-        callback(`El fichero ${this.file} no existe`, undefined);
+        callback(`El directorio ${this.file} no existe`, undefined);
       } else {
         fs.stat(this.file, (err, stats) => {
           if (!err) {
@@ -119,7 +146,7 @@ export class Wrapper {
   rm(callback: (err: string | undefined, event: string | undefined) => void) {
     fs.access(this.file, fs.constants.F_OK, (err) => {
       if (err) {
-        callback(`El fichero ${this.file} no existe`, undefined);
+        callback(`El fichero/directorio ${this.file} no existe`, undefined);
       } else {
         fs.stat(this.file, (err, stats) => {
           if (!err) {

@@ -1,8 +1,18 @@
 import * as fs from 'fs';
-
+/**
+ * Clase `SeeNote`
+ */
 export class SeeNote {
+  /**
+   * Constructor de la clase `SeeNote`
+   * @param user Usuario de las notas
+   * @param fileName Dirección de donde se almacenan las notas
+   */
   constructor(private user: string, private fileName: string) {}
-
+  /**
+   * Método encargado de vigilar el fichero del usuario
+   * @param callback callback
+   */
   init(callback: (err: string | undefined, event: string | undefined) => void) {
     fs.access(`./${this.fileName}/${this.user}`, fs.constants.F_OK, (err) => {
       if (err) {

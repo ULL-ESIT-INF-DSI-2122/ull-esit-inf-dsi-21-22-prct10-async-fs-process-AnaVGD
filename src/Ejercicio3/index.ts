@@ -2,7 +2,9 @@ import * as yargs from 'yargs';
 import * as chalk from 'chalk';
 import {SeeNote} from "./seeNote";
 
-
+/**
+ * Comando see para ejecutar el método `init`
+ */
 yargs.command({
   command: 'see',
   describe: 'Ver fichero de notas',

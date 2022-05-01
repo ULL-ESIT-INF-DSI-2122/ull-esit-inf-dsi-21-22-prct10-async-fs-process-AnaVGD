@@ -1,9 +1,22 @@
 import * as fs from 'fs';
 import {spawn} from 'child_process';
-
+/**
+ * Clase CatGrep
+ */
 export class CatGrep {
+  /**
+   * El constructor de la clase recibe un fichero y una palabra para buscar en
+   * el fichero
+   * @param fileName Fichero
+   * @param word Palabra a buscar en el fichero
+   */
   constructor(private fileName: string, private word: string) {}
 
+  /**
+   * Método `runPipe` encargado de conatar las ocurrencias de una palabra en un
+   * fichero de texto usando `pipe`.
+   * @param callback Callback
+   */
   runPipe(callback: (err: string | undefined, event: string | undefined) => void): void {
     fs.access(this.fileName, fs.constants.F_OK, (err) => {
       if (err) {
@@ -37,7 +50,11 @@ export class CatGrep {
       }
     });
   }
-
+  /**
+   * Método `runPipe` encargado de conatar las ocurrencias de una palabra en un
+   * fichero de texto sin usar `pipe`.
+   * @param callback Callback
+   */
   runNoPipe(callback: (err: string | undefined, event: string | undefined) => void) {
     fs.access(this.fileName, fs.constants.F_OK, (err) => {
       if (err) {
