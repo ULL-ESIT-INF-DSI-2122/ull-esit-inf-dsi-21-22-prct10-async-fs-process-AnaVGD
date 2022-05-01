@@ -143,6 +143,10 @@ export class Wrapper {
     });
   }
 
+  /**
+   * rm encargado de borrar ficheros y directorios.
+   * @param callback callback
+   */
   rm(callback: (err: string | undefined, event: string | undefined) => void) {
     fs.access(this.file, fs.constants.F_OK, (err) => {
       if (err) {
@@ -179,6 +183,12 @@ export class Wrapper {
     });
   }
 
+  /**
+   * Copiar ficheros y/o directorios de una ruta a otra. Se le pasa por
+   * parámetro la ruto destino
+   * @param destination ruta destino
+   * @param callback callback
+   */
   cp(destination: string, callback: (err: string | undefined, event: string | undefined) => void) {
     fs.access(this.file, fs.constants.F_OK, (err) => {
       if (err) {
@@ -236,6 +246,12 @@ export class Wrapper {
     });
   }
 
+  /**
+   * Movemos ficheros y/o directorios de una ruta a otra. Se le pasa por
+   * parámetro la ruto destino
+   * @param destination ruta destino
+   * @param callback callback
+   */
   mv(destination: string, callback: (err: string | undefined, event: string | undefined) => void) {
     fs.access(this.file, fs.constants.F_OK, (err) => {
       if (err) {

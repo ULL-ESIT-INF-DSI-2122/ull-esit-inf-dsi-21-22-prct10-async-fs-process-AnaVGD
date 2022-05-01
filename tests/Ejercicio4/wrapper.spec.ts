@@ -1,7 +1,6 @@
 import 'mocha';
 import {expect} from 'chai';
 import {Wrapper} from "../../src/Ejercicio4/wrapper";
-import {spawn} from 'child_process';
 
 describe('Ejercicio 4', () => {
   let wra1: Wrapper;

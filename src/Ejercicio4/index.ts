@@ -2,10 +2,12 @@ import * as yargs from 'yargs';
 import {Wrapper} from "./wrapper";
 import * as chalk from 'chalk';
 
-
+/**
+ * Comando check para mostrar si es directorio o fichero
+ */
 yargs.command({
   command: 'check',
-  describe: 'Muestra si es directorio o fichero',
+  describe: 'Muestra si v',
   builder: {
     file: {
       describe: 'Ruta del fichero o directorio',
@@ -29,6 +31,9 @@ yargs.command({
   },
 });
 
+/**
+ * Comando mkdir para crear directorios
+ */
 yargs.command({
   command: 'mkdir',
   describe: 'Crea un directorio',
@@ -55,6 +60,9 @@ yargs.command({
   },
 });
 
+/**
+ * Comando list para listar los ficheros dentro de un directorio
+ */
 yargs.command({
   command: 'list',
   describe: 'Listar los ficheros dentro de un directorio',
@@ -81,9 +89,12 @@ yargs.command({
   },
 });
 
+/**
+ * Comando cat para mostrar el contenido de un fichero
+ */
 yargs.command({
   command: 'cat',
-  describe: 'Mostrar el contenido de un fichero ',
+  describe: 'Mostrar el contenido de un fichero',
   builder: {
     file: {
       describe: 'Directorio a mostrar',
@@ -107,6 +118,9 @@ yargs.command({
   },
 });
 
+/**
+ * OCmando rm para eliminar ficheros y directorios
+ */
 yargs.command({
   command: 'rm',
   describe: 'Borrar ficheros y directorios',
@@ -133,6 +147,9 @@ yargs.command({
   },
 });
 
+/**
+ * Comando cp para copiar ficheros y/o directorios de una ruta a otra
+ */
 yargs.command({
   command: 'cp',
   describe: 'Copiar ficheros y/o directorios de una ruta a otra',
@@ -164,6 +181,9 @@ yargs.command({
   },
 });
 
+/**
+ * Comando mv para mover ficheros y/o directorios de una ruta a otra
+ */
 yargs.command({
   command: 'mv',
   describe: 'Mover ficheros y/o directorios de una ruta a otra',
